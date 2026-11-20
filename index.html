@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YTSE — Verified Streetwear & Sneakers | All-In Pricing</title>
+  <title>YTSE — Verified Streetwear & Footwear</title>
   <style>
     :root {
       --bg: #ffffff;
-      --surface: #f7f7f7;
-      --surface-alt: #efefef;
-      --text: #0f0f0f;
-      --muted: #666666;
-      --border: #e2e2e2;
+      --surface: #f4f4f2;
+      --surface-hover: #eaeae7;
+      --text: #111111;
+      --muted: #767676;
+      --border: #e2e2df;
       --accent: #111111;
-      --verified: #0d7a43;
-      --verified-bg: #e9f7ef;
-      --radius: 6px;
+      --verified: #15803d;
+      --verified-bg: #eef7f0;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
 
     * {
@@ -25,21 +26,12 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text);
-      line-height: 1.45;
+      font-family: var(--font-sans);
       -webkit-font-smoothing: antialiased;
-    }
-
-    button, input, select {
-      font-family: inherit;
-      font-size: inherit;
-      color: inherit;
-    }
-
-    button {
-      cursor: pointer;
+      line-height: 1.4;
+      overflow-x: hidden;
     }
 
     /* Header */
@@ -47,15 +39,16 @@
       position: sticky;
       top: 0;
       z-index: 40;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
     }
 
-    .header-inner {
-      max-width: 1280px;
+    .nav-bar {
+      max-width: 1440px;
       margin: 0 auto;
-      padding: 14px 20px;
+      padding: 0 24px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -64,541 +57,720 @@
 
     .brand {
       font-weight: 800;
-      font-size: 1.25rem;
+      font-size: 18px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      text-decoration: none;
-      color: var(--text);
+      cursor: pointer;
+      user-select: none;
     }
 
-    nav {
+    .nav-links {
       display: flex;
-      gap: 24px;
+      align-items: center;
+      gap: 28px;
     }
 
-    nav a {
-      text-decoration: none;
+    .nav-tab {
+      background: none;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--muted);
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: color 0.15s;
+      cursor: pointer;
+      padding: 20px 0;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
     }
 
-    nav a:hover {
+    .nav-tab:hover,
+    .nav-tab.active {
       color: var(--text);
+      border-bottom-color: var(--text);
     }
 
-    .header-actions {
+    .nav-actions {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .btn {
-      padding: 8px 14px;
-      border-radius: var(--radius);
+    .pill-btn {
+      background: transparent;
       border: 1px solid var(--border);
-      background: var(--bg);
-      font-size: 0.8125rem;
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 11px;
       font-weight: 600;
-      transition: all 0.15s;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .btn:hover {
+    .pill-btn:hover {
+      border-color: var(--text);
+      background: var(--surface);
+    }
+
+    .pill-btn.solid {
+      background: var(--text);
+      color: #fff;
       border-color: var(--text);
     }
 
-    .btn-primary {
-      background: var(--accent);
-      color: #ffffff;
-      border-color: var(--accent);
+    .pill-btn.solid:hover {
+      background: #2b2b2b;
     }
 
-    .btn-primary:hover {
-      opacity: 0.88;
-    }
-
-    .member-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      font-size: 0.8125rem;
-      font-weight: 600;
-    }
-
-    .member-dot {
-      width: 7px;
-      height: 7px;
+    .status-dot {
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--verified);
+      display: inline-block;
     }
 
-    /* Search Bar */
-    .search-bar-wrap {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 20px 14px;
-    }
-
-    .search-box {
-      display: flex;
-      align-items: center;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 8px 12px;
-      gap: 8px;
-    }
-
-    .search-box input {
-      width: 100%;
-      border: none;
-      background: transparent;
-      outline: none;
-      font-size: 0.875rem;
-    }
-
-    /* Banner */
+    /* Announcement Bar */
     .announcement-bar {
-      background: var(--accent);
+      background: #141414;
       color: #ffffff;
       text-align: center;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      padding: 9px 16px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 8px 16px;
     }
 
-    /* Main Layout */
+    /* Main Container */
     main {
-      max-width: 1280px;
+      max-width: 1440px;
       margin: 0 auto;
-      padding: 28px 20px 72px;
-      display: flex;
-      flex-direction: column;
-      gap: 56px;
+      padding: 24px 24px 80px;
     }
 
-    /* Filter & Sort Toolbar */
+    /* Filter Bar */
     .toolbar {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 20px;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .category-tabs {
+    .filter-group {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
 
-    .tab-btn {
+    .filter-chip {
+      background: var(--surface);
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       padding: 7px 14px;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      font-size: 0.8125rem;
-      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
     }
 
-    .tab-btn.active {
-      background: var(--accent);
+    .filter-chip:hover {
+      color: var(--text);
+      background: var(--surface-hover);
+    }
+
+    .filter-chip.active {
+      background: var(--text);
       color: #ffffff;
-      border-color: var(--accent);
     }
 
-    .sort-controls {
+    .toolbar-right {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 0.8125rem;
-      color: var(--muted);
+      gap: 16px;
     }
 
-    .sort-controls select {
-      padding: 7px 12px;
+    .search-input {
       border: 1px solid var(--border);
-      border-radius: var(--radius);
       background: var(--bg);
+      padding: 7px 12px;
+      font-size: 12px;
+      font-family: var(--font-sans);
       color: var(--text);
-      font-weight: 500;
+      width: 210px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--text);
+    }
+
+    .item-count {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
     }
 
     /* Product Grid */
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px 18px;
+    }
+
+    @media (max-width: 1100px) {
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .nav-links {
+        gap: 14px;
+      }
+      .search-input {
+        width: 150px;
+      }
     }
 
     .product-card {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: var(--bg);
+      cursor: pointer;
       display: flex;
       flex-direction: column;
-      transition: border-color 0.15s, transform 0.15s;
-      cursor: pointer;
     }
 
-    .product-card:hover {
-      border-color: var(--text);
-      transform: translateY(-2px);
-    }
-
-    .card-thumb {
-      aspect-ratio: 4 / 3;
+    .card-media {
+      position: relative;
       background: var(--surface);
+      aspect-ratio: 1 / 1.05;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      padding: 16px;
-      font-weight: 700;
-      font-size: 0.8rem;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      text-transform: uppercase;
+      padding: 28px;
+      overflow: hidden;
+      transition: background 0.2s ease;
+    }
+
+    .product-card:hover .card-media {
+      background: var(--surface-hover);
+    }
+
+    .card-media svg {
+      width: 76%;
+      height: 76%;
+      transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .product-card:hover .card-media svg {
+      transform: scale(1.05);
     }
 
     .badge-verified {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      background: var(--verified-bg);
-      color: var(--verified);
-      font-size: 0.6875rem;
+      top: 12px;
+      left: 12px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 9px;
       font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 8px;
     }
 
-    .card-body {
-      padding: 14px 16px 16px;
+    .inspect-hint {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.85;
+    }
+
+    .card-meta {
+      padding-top: 12px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      flex: 1;
+      gap: 4px;
     }
 
-    .card-brand {
-      font-size: 0.75rem;
-      font-weight: 700;
+    .card-sku {
+      font-family: var(--font-mono);
+      font-size: 10px;
       color: var(--muted);
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
     }
 
     .card-title {
-      font-size: 0.9375rem;
+      font-size: 13px;
       font-weight: 600;
+      color: var(--text);
     }
 
     .card-price-row {
-      margin-top: auto;
-      padding-top: 10px;
-      border-top: 1px solid var(--surface-alt);
       display: flex;
       align-items: baseline;
       justify-content: space-between;
+      margin-top: 4px;
     }
 
     .card-price {
-      font-size: 1rem;
-      font-weight: 800;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
     }
 
     .card-all-in {
-      font-size: 0.7rem;
-      color: var(--verified);
+      font-size: 9px;
       font-weight: 600;
-    }
-
-    /* Section Headings */
-    .section-header {
-      margin-bottom: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .section-header h2 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .section-header p {
-      font-size: 0.875rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    /* Release Calendar & Tracker Lists */
-    .release-grid, .tracker-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 16px;
-    }
-
-    .info-card {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      background: var(--surface);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .info-card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.75rem;
-      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--muted);
     }
 
-    .checkpoint-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 0.8125rem;
-    }
-
-    .checkpoint {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .checkpoint.done {
-      color: var(--verified);
-      font-weight: 600;
-    }
-
-    /* Modals */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
+    /* Views */
+    .view-section {
       display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      z-index: 100;
     }
 
-    .modal-backdrop.open {
-      display: flex;
+    .view-section.active {
+      display: block;
     }
 
-    .modal-box {
-      background: var(--bg);
+    /* Drops View */
+    .section-header {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .drops-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .drops-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .drop-card {
       border: 1px solid var(--border);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 440px;
+      background: var(--bg);
       padding: 24px;
       display: flex;
-      flex-direction: column;
-      gap: 16px;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .modal-box.wide {
-      max-width: 680px;
-    }
-
-    .modal-top {
-      display: flex;
-      align-items: center;
       justify-content: space-between;
-      font-size: 0.75rem;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .drop-time {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--verified);
       font-weight: 700;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-    }
-
-    .close-btn {
-      border: none;
-      background: transparent;
-      font-size: 1.25rem;
-      line-height: 1;
-      padding: 4px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .form-group label {
-      font-size: 0.75rem;
-      font-weight: 700;
+      margin-bottom: 6px;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+    }
+
+    .drop-name {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .drop-desc {
+      font-size: 12px;
       color: var(--muted);
+      margin-bottom: 14px;
     }
 
-    .form-group input {
-      padding: 10px 12px;
+    /* Auth Tracker View */
+    .tracker-box {
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 0.875rem;
+      padding: 28px;
+      background: var(--bg);
+      margin-bottom: 24px;
     }
 
-    .form-group input:focus {
-      outline: none;
+    .tracker-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+
+    .stages-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 850px) {
+      .stages-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stage-step {
+      border: 1px solid var(--border);
+      padding: 18px;
+      background: var(--surface);
+      opacity: 0.55;
+      transition: all 0.2s ease;
+    }
+
+    .stage-step.done,
+    .stage-step.current {
+      opacity: 1;
+      background: #ffffff;
       border-color: var(--text);
     }
 
-    .demo-account-box {
-      background: var(--surface);
-      border: 1px dashed var(--border);
-      border-radius: var(--radius);
-      padding: 12px;
+    .stage-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 8px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      font-size: 0.8125rem;
     }
 
-    .size-matrix {
+    .stage-step.done .stage-num {
+      color: var(--verified);
+    }
+
+    .stage-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .stage-detail {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Modals & Drawers */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 60;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: #ffffff;
+      width: 100%;
+      max-width: 780px;
+      border: 1px solid var(--border);
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      position: relative;
+      max-height: 90vh;
+    }
+
+    @media (max-width: 720px) {
+      .modal {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+      }
+    }
+
+    .modal-single {
+      background: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      border: 1px solid var(--border);
+      padding: 28px;
+      position: relative;
+    }
+
+    .close-x {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--text);
+      line-height: 1;
+      z-index: 5;
+    }
+
+    .modal-preview {
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 36px;
+      position: relative;
+    }
+
+    .modal-preview svg {
+      width: 82%;
+      height: 82%;
+    }
+
+    .modal-body {
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .size-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     .size-btn {
-      padding: 8px 6px;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--bg);
-      font-size: 0.8125rem;
-      font-weight: 600;
+      background: #ffffff;
+      padding: 10px 8px;
       text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
     }
 
-    .size-btn.active {
-      border-color: var(--accent);
-      background: var(--accent);
+    .size-btn:hover {
+      border-color: var(--text);
+    }
+
+    .size-btn.selected {
+      border-color: var(--text);
+      background: var(--text);
       color: #ffffff;
     }
 
-    .price-breakdown {
-      background: var(--surface);
-      border-radius: var(--radius);
-      padding: 14px;
+    .size-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .size-price {
+      display: block;
+      font-size: 10px;
+      margin-top: 2px;
+      opacity: 0.8;
+    }
+
+    .auth-guarantee-box {
+      background: var(--verified-bg);
+      border: 1px solid #cce5d2;
+      padding: 12px;
+      font-size: 11px;
+      color: #14532d;
+    }
+
+    /* Bag Drawer */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 70;
+      display: none;
+      justify-content: flex-end;
+    }
+
+    .drawer-overlay.open {
+      display: flex;
+    }
+
+    .drawer {
+      background: #ffffff;
+      width: 100%;
+      max-width: 400px;
+      height: 100%;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      font-size: 0.8125rem;
+      border-left: 1px solid var(--border);
     }
 
-    .price-row {
+    .drawer-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
 
-    .price-row.total {
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .bag-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+
+    .drawer-footer {
+      padding: 20px 24px;
       border-top: 1px solid var(--border);
-      padding-top: 8px;
-      font-weight: 800;
-      font-size: 0.9375rem;
+      background: var(--surface);
+    }
+
+    /* Form Controls inside Login Modal */
+    .form-field {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      color: var(--muted);
+    }
+
+    .form-input {
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      font-size: 13px;
+      font-family: var(--font-sans);
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--text);
+    }
+
+    .demo-preset-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
     }
 
     /* Toast */
     .toast {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--accent);
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #111111;
       color: #ffffff;
-      padding: 10px 16px;
-      border-radius: var(--radius);
-      font-size: 0.8125rem;
+      font-size: 11px;
       font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 12px 20px;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.2s;
-      z-index: 200;
+      transition: all 0.22s ease;
+      z-index: 90;
     }
 
     .toast.show {
       opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
-    /* Footer */
     footer {
       border-top: 1px solid var(--border);
-      padding: 28px 20px;
-      background: var(--surface);
-    }
-
-    .footer-inner {
-      max-width: 1280px;
+      padding: 28px 24px;
+      max-width: 1440px;
       margin: 0 auto;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      align-items: center;
       gap: 12px;
-      font-size: 0.8125rem;
+      font-size: 11px;
       color: var(--muted);
-    }
-
-    .footer-brand {
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: 0.12em;
-    }
-
-    @media (max-width: 640px) {
-      nav {
-        display: none;
-      }
+      letter-spacing: 0.04em;
     }
   </style>
 </head>
 <body>
 
+  <!-- Navigation -->
   <header>
-    <div class="header-inner">
-      <a href="#" class="brand">YTSE</a>
+    <div class="nav-bar">
+      <div class="brand" onclick="switchTab('shop')">YTSE</div>
 
-      <nav aria-label="Primary Navigation">
-        <a href="#catalog">Catalog</a>
-        <a href="#releases">Release Calendar</a>
-        <a href="#tracker">Lab Tracker</a>
+      <nav class="nav-links">
+        <button class="nav-tab active" data-tab="shop" onclick="switchTab('shop')">Shop Grid</button>
+        <button class="nav-tab" data-tab="drops" onclick="switchTab('drops')">Drops</button>
+        <button class="nav-tab" data-tab="tracker" onclick="switchTab('tracker')">Auth Tracker (<span id="trackerCount">1</span>)</button>
       </nav>
 
-      <div class="header-actions" id="authHeaderSlot">
-        <button type="button" class="btn" id="openTrackerBtn">Lab Tracker</button>
-        <button type="button" class="btn btn-primary" id="openLoginBtn">Log In</button>
-      </div>
-    </div>
-
-    <div class="search-bar-wrap">
-      <div class="search-box">
-        <span style="color: var(--muted); font-size: 0.8rem;">SEARCH</span>
-        <input type="search" id="searchInput" placeholder="Search verified sneakers, streetwear, SKU..." aria-label="Search catalog" />
+      <div class="nav-actions">
+        <button class="pill-btn" id="authBtn" onclick="openLoginModal()">Log In</button>
+        <button class="pill-btn solid" onclick="toggleBag(true)">Bag (<span id="bagCount">0</span>)</button>
       </div>
     </div>
   </header>
@@ -608,511 +780,718 @@
   </div>
 
   <main>
-    <!-- Catalog Section -->
-    <section id="catalog">
+    <!-- SHOP GRID VIEW -->
+    <section id="view-shop" class="view-section active">
       <div class="toolbar">
-        <div class="category-tabs" id="categoryTabs">
-          <button type="button" class="tab-btn active" data-category="ALL">All Items</button>
-          <button type="button" class="tab-btn" data-category="SNEAKERS">Sneakers</button>
-          <button type="button" class="tab-btn" data-category="STREETWEAR">Streetwear</button>
-          <button type="button" class="tab-btn" data-category="ACCESSORIES">Accessories</button>
+        <div class="filter-group" id="categoryFilters">
+          <button class="filter-chip active" data-cat="ALL" onclick="setCategory('ALL')">All</button>
+          <button class="filter-chip" data-cat="FOOTWEAR" onclick="setCategory('FOOTWEAR')">Footwear</button>
+          <button class="filter-chip" data-cat="APPAREL" onclick="setCategory('APPAREL')">Apparel</button>
+          <button class="filter-chip" data-cat="ACCESSORIES" onclick="setCategory('ACCESSORIES')">Accessories</button>
         </div>
 
-        <div class="sort-controls">
-          <span id="itemCountLabel">8 Verified Items</span>
-          <select id="sortSelect" aria-label="Sort items">
-            <option value="featured">Sort: Curated Grid</option>
-            <option value="asc">All-In Price: Low → High</option>
-            <option value="desc">All-In Price: High → Low</option>
-          </select>
+        <div class="toolbar-right">
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="Search SKU, brand, item..."
+            oninput="renderGrid()"
+          />
+          <span class="item-count" id="verifiedCounter">8 Verified Items</span>
         </div>
       </div>
 
       <div class="product-grid" id="productGrid"></div>
     </section>
 
-    <!-- Release Calendar -->
-    <section id="releases">
+    <!-- DROPS VIEW -->
+    <section id="view-drops" class="view-section">
       <div class="section-header">
-        <div>
-          <h2>YTSE Verified Release Calendar</h2>
-          <p>Set 1-tap instant drop notifications or buy pre-verified pairs at all-in prices.</p>
+        <h2 class="section-title">Scheduled Archive &amp; Studio Drops</h2>
+        <p class="section-sub">Pre-authenticated inventory locked in Seoul Inspection Lab prior to release.</p>
+      </div>
+
+      <div class="drops-list">
+        <div class="drop-card">
+          <div>
+            <div class="drop-time">LIVE ARCHIVE • DROP 01</div>
+            <div class="drop-name">YTSE Studio Core Capsule — Washed Onyx</div>
+            <div class="drop-desc">520gsm French terry hoodies &amp; articulated wide cargo trousers.</div>
+            <button class="pill-btn solid" onclick="switchTab('shop'); setCategory('APPAREL');">Shop Apparel</button>
+          </div>
+        </div>
+
+        <div class="drop-card">
+          <div>
+            <div class="drop-time">UPCOMING • FRI 20:00 KST</div>
+            <div class="drop-name">Salomon &amp; Jordan Deadstock Allocation</div>
+            <div class="drop-desc">Batch-verified deadstock pairs with serialized NFC tamper tags.</div>
+            <button class="pill-btn" id="notifyBtn" onclick="toggleDropNotify()">Notify Me</button>
+          </div>
         </div>
       </div>
-      <div class="release-grid" id="releaseGrid"></div>
     </section>
 
-    <!-- Live Tracker -->
-    <section id="tracker">
+    <!-- AUTH TRACKER VIEW -->
+    <section id="view-tracker" class="view-section">
       <div class="section-header">
-        <div>
-          <h2>Live Authentication &amp; Order Tracker</h2>
-          <p>Real-time inspection checkpoints from seller dispatch to YTSE Lab verification.</p>
-        </div>
+        <h2 class="section-title">4-Stage Physical Lab Authentication Tracker</h2>
+        <p class="section-sub">Every YTSE order passes physical inspection at our Seoul Lab before dispatch.</p>
       </div>
-      <div class="tracker-grid" id="trackerGrid"></div>
+
+      <div id="trackerContainer"></div>
     </section>
   </main>
 
-  <!-- Product Detail Modal -->
-  <div class="modal-backdrop" id="productModal" role="dialog" aria-modal="true">
-    <div class="modal-box wide">
-      <div class="modal-top">
-        <span id="modalSku">SKU-001</span>
-        <button type="button" class="close-btn" data-close="productModal" aria-label="Close">&times;</button>
-      </div>
-
-      <div style="display: flex; flex-direction: column; gap: 14px;">
-        <div>
-          <span style="font-size: 0.72rem; font-weight: 700; color: var(--verified);">YTSE Lab Verified</span>
-          <p style="font-size: 0.75rem; font-weight: 700; color: var(--muted); margin-top: 4px;" id="modalBrand">YTSE STUDIO</p>
-          <h2 id="modalTitle" style="font-size: 1.25rem; margin-top: 2px;">Product Title</h2>
-        </div>
-
-        <div>
-          <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 600;">
-            <span>Select Size (Live Matrix)</span>
-            <span style="color: var(--verified);">Fastest Delivery</span>
-          </div>
-          <div class="size-matrix" id="sizeMatrix"></div>
-        </div>
-
-        <div class="price-breakdown">
-          <div class="price-row">
-            <span>Seller Ask Price (Size <span id="selectedSizeLabel">270</span>)</span>
-            <span id="askPriceLabel">₩0</span>
-          </div>
-          <div class="price-row">
-            <span>Multi-Point Lab Authentication</span>
-            <span>₩12,000 (Included)</span>
-          </div>
-          <div class="price-row">
-            <span>Insured Express Courier</span>
-            <span>₩3,000 (Included)</span>
-          </div>
-          <div class="price-row total">
-            <span>Final All-In Price</span>
-            <span id="finalPriceLabel">₩0</span>
-          </div>
-        </div>
-
-        <div style="display: flex; gap: 10px; justify-content: flex-end;">
-          <button type="button" class="btn" data-close="productModal">Cancel</button>
-          <button type="button" class="btn btn-primary" id="proceedCheckoutBtn">Proceed to Single-Screen Checkout</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- YTSE ID Login Modal (Minho configured as example member inside login) -->
-  <div class="modal-backdrop" id="loginModal" role="dialog" aria-modal="true">
-    <div class="modal-box">
-      <div class="modal-top">
-        <span>YTSE ID</span>
-        <button type="button" class="close-btn" data-close="loginModal" aria-label="Close">&times;</button>
-      </div>
-
-      <div>
-        <h3 style="font-size: 1.15rem;">Sign In to Buy &amp; Track</h3>
-        <p style="font-size: 0.8125rem; color: var(--muted); margin-top: 4px;">
-          Member session for verified checkout and live lab tracking.
-        </p>
-      </div>
-
-      <!-- Example Member Card inside Login Modal -->
-      <div class="demo-account-box">
-        <div>
-          <div style="font-weight: 700;">Example Member: Minho</div>
-          <div style="font-size: 0.75rem; color: var(--muted);">minho@ytse.kr · Seoul, Mapo-gu</div>
-        </div>
-        <button type="button" class="btn" id="fillMinhoBtn">Use Example</button>
-      </div>
-
-      <form id="loginForm" style="display: flex; flex-direction: column; gap: 12px;">
-        <div class="form-group">
-          <label for="loginName">Member Name</label>
-          <input type="text" id="loginName" placeholder="e.g. Minho" required />
-        </div>
-
-        <div class="form-group">
-          <label for="loginEmail">YTSE ID (Email)</label>
-          <input type="email" id="loginEmail" placeholder="e.g. minho@ytse.kr" required />
-        </div>
-
-        <div class="form-group">
-          <label for="loginPassword">Password</label>
-          <input type="password" id="loginPassword" placeholder="Enter password" required />
-        </div>
-
-        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px;">
-          Sign In to YTSE
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Single-Screen Checkout Modal -->
-  <div class="modal-backdrop" id="checkoutModal" role="dialog" aria-modal="true">
-    <div class="modal-box">
-      <div class="modal-top">
-        <div>
-          <strong>Single-Screen Checkout</strong>
-          <p id="checkoutMemberStatus" style="font-weight: 400; margin-top: 2px;">Logged in as Guest · Quick Checkout Ready</p>
-        </div>
-        <button type="button" class="close-btn" data-close="checkoutModal" aria-label="Close">&times;</button>
-      </div>
-
-      <div id="checkoutItemSummary" style="padding: 12px; background: var(--surface); border-radius: var(--radius); font-size: 0.85rem;"></div>
-
-      <div class="price-breakdown">
-        <div class="price-row">
-          <span>Shipping Destination</span>
-          <span id="checkoutAddress">Seoul, Mapo-gu (Express)</span>
-        </div>
-        <div class="price-row">
-          <span>Authentication &amp; Courier</span>
-          <span>Included in All-In Price</span>
-        </div>
-        <div class="price-row total">
-          <span>Total Payable Now</span>
-          <span id="checkoutTotal">₩0</span>
-        </div>
-      </div>
-
-      <button type="button" class="btn btn-primary" id="confirmOrderBtn" style="width: 100%; padding: 11px;">
-        Confirm Verified Order
-      </button>
-    </div>
-  </div>
-
-  <div class="toast" id="toast" aria-live="polite" role="status"></div>
-
   <footer>
-    <div class="footer-inner">
-      <div class="footer-brand">YTSE</div>
-      <div>Verified Streetwear &amp; Sneakers · All-In Pricing</div>
-    </div>
+    <div>YTSE — VERIFIED ARCHIVE &amp; STUDIO COMMERCE</div>
+    <div>ALL PRICES IN KRW (₩) • PHYSICAL LAB AUTHENTICATED</div>
   </footer>
 
-  <script>
-    const state = {
-      currentUser: null,
-      category: "ALL",
-      sort: "featured",
-      search: "",
-      selectedProduct: null,
-      selectedSize: "270",
-      notifiedDrops: new Set()
-    };
-
-    const PRODUCTS = [
-      { sku: "SKU-001", brand: "NIKE SB", title: "Dunk Low Pro Black White (2025)", category: "SNEAKERS", baseAsk: 165000, sizes: ["255", "260", "265", "270", "275", "280"] },
-      { sku: "SKU-002", brand: "SUPREME", title: "White Sox Zip Up Hooded Sweatshirt Black", category: "STREETWEAR", baseAsk: 340000, sizes: ["S", "M", "L", "XL"] },
-      { sku: "SKU-003", brand: "NEW BALANCE", title: "991v2 Made in UK Grey", category: "SNEAKERS", baseAsk: 295000, sizes: ["260", "265", "270", "275", "280"] },
-      { sku: "SKU-004", brand: "STUSSY", title: "Workgear Ripstop Shell Jacket", category: "STREETWEAR", baseAsk: 270000, sizes: ["S", "M", "L", "XL"] },
-      { sku: "SKU-005", brand: "ASICS", title: "Gel-Kayano 14 Cream Black", category: "SNEAKERS", baseAsk: 210000, sizes: ["250", "260", "265", "270", "275"] },
-      { sku: "SKU-006", brand: "ARC'TERYX", title: "Mantis 26 Backpack Black Sapphire", category: "ACCESSORIES", baseAsk: 235000, sizes: ["ONE"] },
-      { sku: "SKU-007", brand: "JORDAN BRAND", title: "Air Jordan 1 Low OG Mocha", category: "SNEAKERS", baseAsk: 225000, sizes: ["260", "265", "270", "275", "280"] },
-      { sku: "SKU-008", brand: "PALACE", title: "Pertex Puffa Jacket Carbon", category: "STREETWEAR", baseAsk: 410000, sizes: ["M", "L", "XL"] }
-    ];
-
-    const RELEASES = [
-      { id: "REL-01", date: "NOV 24 · 10:00 KST", title: "Nike SB Dunk Low Pro 'Shadow'", allInPrice: 185000 },
-      { id: "REL-02", date: "NOV 27 · 11:00 KST", title: "Supreme Box Logo Crewneck FW26", allInPrice: 365000 },
-      { id: "REL-03", date: "DEC 02 · 10:00 KST", title: "Salomon XT-6 GTX Triple Black", allInPrice: 280000 }
-    ];
-
-    const TRACKER_ORDERS = [
-      { id: "YTSE-8841", item: "Nike SB Dunk Low Pro (270)", status: "YTSE Lab Passed · Express Dispatched", step: 3 },
-      { id: "YTSE-8842", item: "Supreme Zip Up Hooded Sweatshirt (L)", status: "Multi-Point Lab Inspection In Progress", step: 2 }
-    ];
-
-    const AUTH_FEE = 12000;
-    const COURIER_FEE = 3000;
-
-    function formatKRW(amount) {
-      return "₩" + amount.toLocaleString("ko-KR");
-    }
-
-    function getAllInPrice(baseAsk) {
-      return baseAsk + AUTH_FEE + COURIER_FEE;
-    }
-
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.textContent = message;
-      toast.classList.add("show");
-      clearTimeout(toast._timer);
-      toast._timer = setTimeout(() => toast.classList.remove("show"), 2600);
-    }
-
-    /* Render Header Auth State */
-    function renderAuthHeader() {
-      const slot = document.getElementById("authHeaderSlot");
-      const checkoutStatus = document.getElementById("checkoutMemberStatus");
-      const checkoutAddress = document.getElementById("checkoutAddress");
-
-      if (state.currentUser) {
-        slot.innerHTML = `
-          <div class="member-pill" title="${state.currentUser.email}">
-            <span class="member-dot"></span>
-            <span>${state.currentUser.name}</span>
+  <!-- PRODUCT DETAIL MODAL -->
+  <div class="overlay" id="productModal" onclick="closeModalOnBackdrop(event, 'productModal')">
+    <div class="modal">
+      <button class="close-x" onclick="closeModal('productModal')">&times;</button>
+      <div class="modal-preview" id="modalSvgWrap"></div>
+      <div class="modal-body">
+        <div>
+          <div class="card-sku" id="modalSku"></div>
+          <h2 style="font-size: 20px; font-weight: 700; margin: 4px 0 8px;" id="modalTitle"></h2>
+          <div style="font-size: 18px; font-weight: 800;" id="modalPrice"></div>
+          <div style="font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px;">
+            All-In Price • Includes Lab Verification &amp; Insured Delivery
           </div>
-          <button type="button" class="btn" id="logoutBtn">Log Out</button>
-        `;
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-          state.currentUser = null;
-          renderAuthHeader();
-          showToast("Signed out of YTSE ID");
-        });
-        checkoutStatus.textContent = `Logged in as ${state.currentUser.name} (${state.currentUser.email}) · Verified Member`;
-        checkoutAddress.textContent = `${state.currentUser.address} (Express)`;
-      } else {
-        slot.innerHTML = `
-          <button type="button" class="btn" id="openTrackerBtn">Lab Tracker</button>
-          <button type="button" class="btn btn-primary" id="openLoginBtn">Log In</button>
-        `;
-        document.getElementById("openLoginBtn").addEventListener("click", () => openModal("loginModal"));
-        document.getElementById("openTrackerBtn").addEventListener("click", () => {
-          document.getElementById("tracker").scrollIntoView({ behavior: "smooth" });
-        });
-        checkoutStatus.textContent = "Logged in as Guest · Quick Checkout Ready";
-        checkoutAddress.textContent = "Seoul, Mapo-gu (Express)";
-      }
-    }
 
-    /* Render Catalog */
-    function renderCatalog() {
-      const grid = document.getElementById("productGrid");
-      const countLabel = document.getElementById("itemCountLabel");
-
-      let filtered = PRODUCTS.filter((p) => {
-        const matchCategory = state.category === "ALL" || p.category === state.category;
-        const q = state.search.trim().toLowerCase();
-        const matchSearch = !q || p.title.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.sku.toLowerCase().includes(q);
-        return matchCategory && matchSearch;
-      });
-
-      if (state.sort === "asc") {
-        filtered.sort((a, b) => getAllInPrice(a.baseAsk) - getAllInPrice(b.baseAsk));
-      } else if (state.sort === "desc") {
-        filtered.sort((a, b) => getAllInPrice(b.baseAsk) - getAllInPrice(a.baseAsk));
-      }
-
-      countLabel.textContent = `${filtered.length} Verified Item${filtered.length === 1 ? "" : "s"}`;
-
-      grid.innerHTML = filtered.map((item) => {
-        const allIn = getAllInPrice(item.baseAsk);
-        return `
-          <article class="product-card" data-sku="${item.sku}">
-            <div class="card-thumb">
-              <span class="badge-verified">YTSE LAB VERIFIED</span>
-              <span>${item.sku}</span>
+          <div style="margin-top: 20px;">
+            <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);">
+              Select Size (Live Size Matrix)
             </div>
-            <div class="card-body">
-              <div class="card-brand">${item.brand}</div>
-              <div class="card-title">${item.title}</div>
-              <div class="card-price-row">
-                <span class="card-price">${formatKRW(allIn)}</span>
-                <span class="card-all-in">ALL-IN PRICE</span>
-              </div>
-            </div>
-          </article>
-        `;
-      }).join("");
-
-      grid.querySelectorAll(".product-card").forEach((card) => {
-        card.addEventListener("click", () => openProductModal(card.dataset.sku));
-      });
-    }
-
-    /* Render Releases */
-    function renderReleases() {
-      const grid = document.getElementById("releaseGrid");
-      grid.innerHTML = RELEASES.map((rel) => {
-        const notified = state.notifiedDrops.has(rel.id);
-        return `
-          <div class="info-card">
-            <div class="info-card-top">
-              <span>${rel.date}</span>
-              <span>ALL-IN ${formatKRW(rel.allInPrice)}</span>
-            </div>
-            <div style="font-weight: 700; font-size: 0.95rem;">${rel.title}</div>
-            <button type="button" class="btn ${notified ? "btn-primary" : ""}" data-rel="${rel.id}">
-              ${notified ? "Drop Alert Active ✓" : "1-Tap Drop Notification"}
-            </button>
-          </div>
-        `;
-      }).join("");
-
-      grid.querySelectorAll("button[data-rel]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const id = btn.dataset.rel;
-          if (state.notifiedDrops.has(id)) {
-            state.notifiedDrops.delete(id);
-            showToast("Drop alert removed");
-          } else {
-            state.notifiedDrops.add(id);
-            showToast("1-tap drop notification enabled");
-          }
-          renderReleases();
-        });
-      });
-    }
-
-    /* Render Tracker */
-    function renderTracker() {
-      const grid = document.getElementById("trackerGrid");
-      const steps = ["Seller Dispatched", "YTSE Lab Multi-Point Check", "Verified & Express Courier"];
-      grid.innerHTML = TRACKER_ORDERS.map((ord) => `
-        <div class="info-card">
-          <div class="info-card-top">
-            <span>${ord.id}</span>
-            <span style="color: var(--verified);">${ord.status}</span>
-          </div>
-          <div style="font-weight: 700; font-size: 0.92rem;">${ord.item}</div>
-          <div class="checkpoint-list">
-            ${steps.map((label, idx) => `
-              <div class="checkpoint ${idx < ord.step ? "done" : ""}">
-                <span>${idx < ord.step ? "●" : "○"}</span>
-                <span>${label}</span>
-              </div>
-            `).join("")}
+            <div class="size-grid" id="modalSizeGrid"></div>
           </div>
         </div>
-      `).join("");
+
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div class="auth-guarantee-box">
+            <strong>YTSE 4-Stage Physical Guarantee:</strong> Stitching, material weight, UV label micro-print, and serialized NFC seal verified before shipping.
+          </div>
+          <button class="pill-btn solid" style="width: 100%; justify-content: center; padding: 14px;" onclick="addSelectedToBag()">
+            Add Verified Item to Bag
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIN / ACCOUNT MODAL -->
+  <div class="overlay" id="loginModal" onclick="closeModalOnBackdrop(event, 'loginModal')">
+    <div class="modal-single">
+      <button class="close-x" onclick="closeModal('loginModal')">&times;</button>
+
+      <!-- Logged Out State -->
+      <div id="loginFormView">
+        <div class="card-sku" style="margin-bottom: 4px;">YTSE MEMBER ACCESS</div>
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 14px;">Sign In to Your Account</h3>
+
+        <!-- Example Member Preset Inside Login -->
+        <div class="demo-preset-card">
+          <div>
+            <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+              Example Member Account
+            </div>
+            <div style="font-size: 13px; font-weight: 700;">Minho Kim (Seoul Tier • Verified)</div>
+            <div style="font-size: 11px; color: var(--muted);">minho.kim@ytse.kr</div>
+          </div>
+          <button type="button" class="pill-btn" onclick="fillExampleMember()">Use Example</button>
+        </div>
+
+        <form onsubmit="handleLoginSubmit(event)">
+          <div class="form-field">
+            <label class="form-label" for="loginName">Member Name</label>
+            <input type="text" id="loginName" class="form-input" placeholder="Enter your name" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="loginEmail">Email Address</label>
+            <input type="email" id="loginEmail" class="form-input" placeholder="name@example.com" required />
+          </div>
+          <div class="form-field" style="margin-bottom: 18px;">
+            <label class="form-label" for="loginPass">Password</label>
+            <input type="password" id="loginPass" class="form-input" placeholder="••••••••" required />
+          </div>
+          <button type="submit" class="pill-btn solid" style="width: 100%; justify-content: center; padding: 12px;">
+            Log In
+          </button>
+        </form>
+      </div>
+
+      <!-- Logged In Profile State -->
+      <div id="memberProfileView" style="display: none;">
+        <div class="card-sku" style="color: var(--verified); margin-bottom: 4px;">ACTIVE MEMBER SESSION</div>
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 6px;" id="profileDisplayName">Minho Kim</h3>
+        <p style="font-size: 12px; color: var(--muted); margin-bottom: 18px;" id="profileDisplayEmail">minho.kim@ytse.kr</p>
+
+        <div style="background: var(--surface); border: 1px solid var(--border); padding: 14px; font-size: 12px; margin-bottom: 18px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <span style="color: var(--muted);">Verification Pass</span>
+            <strong>Active (Zero Fee)</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--muted);">Inspection Hub</span>
+            <strong>Seoul Lab #01</strong>
+          </div>
+        </div>
+
+        <button class="pill-btn" style="width: 100%; justify-content: center; padding: 12px;" onclick="handleLogout()">
+          Log Out
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOPPING BAG DRAWER -->
+  <div class="drawer-overlay" id="bagDrawer" onclick="closeDrawerOnBackdrop(event)">
+    <div class="drawer">
+      <div class="drawer-header">
+        <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">
+          Verified Bag (<span id="drawerBagCount">0</span>)
+        </div>
+        <button class="close-x" style="position: static;" onclick="toggleBag(false)">&times;</button>
+      </div>
+
+      <div class="drawer-body" id="bagItemsContainer"></div>
+
+      <div class="drawer-footer">
+        <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 6px;">
+          <span>Lab Authentication &amp; NFC Seal</span>
+          <span>INCLUDED (₩0)</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 800; margin-bottom: 16px;">
+          <span>ALL-IN TOTAL</span>
+          <span id="bagTotal">₩0</span>
+        </div>
+        <button class="pill-btn solid" style="width: 100%; justify-content: center; padding: 14px;" onclick="checkoutBag()">
+          Place Verified Order
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const PRODUCTS = [
+      {
+        id: "YTSE-FW-01",
+        brand: "NIKE / JORDAN",
+        title: "Air Jordan 1 Retro Low OG Mocha",
+        category: "FOOTWEAR",
+        basePrice: 245000,
+        sizes: [
+          { label: "260", price: 245000 },
+          { label: "265", price: 250000 },
+          { label: "270", price: 245000 },
+          { label: "275", price: 260000 },
+          { label: "280", price: 265000 },
+          { label: "285", price: 275000 }
+        ],
+        svg: `<svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 114C24 102 36 96 58 92L94 64L126 68L148 88C174 90 206 94 214 106C218 112 216 120 212 122H26C24 120 24 117 24 114Z" fill="#EFECE6" stroke="#181818" stroke-width="2.5"/>
+          <path d="M24 114H215V125C215 128 212 130 208 130H30C26 130 24 128 24 125V114Z" fill="#FFFFFF" stroke="#181818" stroke-width="2.5"/>
+          <path d="M88 67L124 70L148 90L116 98L88 67Z" fill="#6E4E3A"/>
+          <path d="M25 113C30 98 48 93 74 91L88 113H25Z" fill="#181818"/>
+          <path d="M86 102C112 102 138 92 156 82C151 96 132 108 102 109C92 109 86 106 86 102Z" fill="#181818"/>
+        </svg>`
+      },
+      {
+        id: "YTSE-AP-01",
+        brand: "YTSE STUDIO",
+        title: "01 Boxy Heavyweight Hoodie — Washed Onyx",
+        category: "APPAREL",
+        basePrice: 175000,
+        sizes: [
+          { label: "S", price: 175000 },
+          { label: "M", price: 175000 },
+          { label: "L", price: 175000 },
+          { label: "XL", price: 180000 }
+        ],
+        svg: `<svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M74 44C84 34 136 34 146 44L188 74L168 104L150 92V178H70V92L52 104L32 74L74 44Z" fill="#232528" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M84 44C94 56 126 56 136 44" stroke="#111111" stroke-width="2.5"/>
+          <rect x="84" y="122" width="52" height="36" rx="4" stroke="#3A3D42" stroke-width="2"/>
+        </svg>`
+      },
+      {
+        id: "YTSE-FW-02",
+        brand: "SALOMON",
+        title: "XT-6 Gore-Tex Triple Black",
+        category: "FOOTWEAR",
+        basePrice: 305000,
+        sizes: [
+          { label: "260", price: 305000 },
+          { label: "265", price: 310000 },
+          { label: "270", price: 305000 },
+          { label: "275", price: 315000 },
+          { label: "280", price: 325000 }
+        ],
+        svg: `<svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 112C26 98 46 92 78 86L118 68L154 74L176 92C196 95 212 102 216 112V124H24V112Z" fill="#1E2022" stroke="#111111" stroke-width="2.5"/>
+          <path d="M22 122H218L214 132H26L22 122Z" fill="#121314" stroke="#111111" stroke-width="2"/>
+          <path d="M62 104H162" stroke="#5A5E63" stroke-width="2" stroke-dasharray="6 5"/>
+          <path d="M96 80L132 112M118 76L152 112" stroke="#36393D" stroke-width="2.5"/>
+        </svg>`
+      },
+      {
+        id: "YTSE-AP-02",
+        brand: "YTSE STUDIO",
+        title: "02 Wide Parachute Cargo Trouser — Slate",
+        category: "APPAREL",
+        basePrice: 195000,
+        sizes: [
+          { label: "28", price: 195000 },
+          { label: "30", price: 195000 },
+          { label: "32", price: 195000 },
+          { label: "34", price: 200000 }
+        ],
+        svg: `<svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M68 32H152L166 188H122L110 96L98 188H54L68 32Z" fill="#4A4E52" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"/>
+          <rect x="56" y="96" width="22" height="32" fill="#3E4246" stroke="#111111" stroke-width="2"/>
+          <rect x="142" y="96" width="22" height="32" fill="#3E4246" stroke="#111111" stroke-width="2"/>
+          <line x1="68" y1="46" x2="152" y2="46" stroke="#111111" stroke-width="2"/>
+        </svg>`
+      },
+      {
+        id: "YTSE-FW-03",
+        brand: "NIKE SB",
+        title: "Dunk Low Pro Black / White Gum",
+        category: "FOOTWEAR",
+        basePrice: 189000,
+        sizes: [
+          { label: "255", price: 189000 },
+          { label: "265", price: 189000 },
+          { label: "270", price: 195000 },
+          { label: "275", price: 199000 },
+          { label: "280", price: 205000 }
+        ],
+        svg: `<svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 114C24 100 40 94 64 90L98 66L130 70L152 88C178 90 206 94 214 108V122H24V114Z" fill="#181818" stroke="#111111" stroke-width="2.5"/>
+          <path d="M24 118H215V126H24V118Z" fill="#FFFFFF" stroke="#111111" stroke-width="2"/>
+          <path d="M24 126H215V132H24V126Z" fill="#B68A5A" stroke="#111111" stroke-width="2"/>
+          <path d="M84 102C112 102 138 92 156 82C150 96 130 108 100 109C90 109 84 106 84 102Z" fill="#FFFFFF"/>
+        </svg>`
+      },
+      {
+        id: "YTSE-AC-01",
+        brand: "YTSE STUDIO",
+        title: "03 Ballistic Nylon Crossbody Sling",
+        category: "ACCESSORIES",
+        basePrice: 115000,
+        sizes: [
+          { label: "ONE SIZE", price: 115000 }
+        ],
+        svg: `<svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M54 96C54 62 166 62 166 96" stroke="#181818" stroke-width="6"/>
+          <rect x="48" y="94" width="124" height="76" rx="8" fill="#1F2022" stroke="#111111" stroke-width="2.5"/>
+          <line x1="48" y1="122" x2="172" y2="122" stroke="#4B4E53" stroke-width="2"/>
+          <rect x="96" y="116" width="28" height="12" rx="2" fill="#D4D4D0"/>
+        </svg>`
+      },
+      {
+        id: "YTSE-AP-03",
+        brand: "SUPREME",
+        title: "Archive Zip-Up Hooded Sweatshirt — Black",
+        category: "APPAREL",
+        basePrice: 340000,
+        sizes: [
+          { label: "M", price: 340000 },
+          { label: "L", price: 345000 },
+          { label: "XL", price: 360000 }
+        ],
+        svg: `<svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M74 44C84 34 136 34 146 44L188 74L168 104L150 92V178H70V92L52 104L32 74L74 44Z" fill="#161616" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"/>
+          <line x1="110" y1="52" x2="110" y2="178" stroke="#7A7A7A" stroke-width="2"/>
+          <rect x="120" y="78" width="20" height="8" fill="#FFFFFF"/>
+        </svg>`
+      },
+      {
+        id: "YTSE-AC-02",
+        brand: "YTSE STUDIO",
+        title: "04 Brushed Steel Serialized Curb Chain",
+        category: "ACCESSORIES",
+        basePrice: 98000,
+        sizes: [
+          { label: "50CM", price: 98000 },
+          { label: "55CM", price: 102000 }
+        ],
+        svg: `<svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="110" cy="110" rx="54" ry="62" stroke="#8C9096" stroke-width="8" stroke-dasharray="10 4"/>
+          <rect x="98" y="164" width="24" height="14" rx="3" fill="#222222"/>
+        </svg>`
+      }
+    ];
+
+    let activeCategory = "ALL";
+    let selectedProduct = null;
+    let selectedSizeIndex = 0;
+    let bag = [];
+    let currentMember = null;
+    let notifyActive = false;
+
+    let trackedOrders = [
+      {
+        orderId: "YTSE-8841",
+        item: "Air Jordan 1 Retro Low OG Mocha (270)",
+        price: 245000,
+        stage: 3
+      }
+    ];
+
+    function formatKRW(num) {
+      return "₩" + num.toLocaleString("ko-KR");
     }
 
-    /* Modals */
-    function openModal(id) {
-      document.getElementById(id).classList.add("open");
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
     }
 
+    /* Navigation Tabs */
+    function switchTab(tabName) {
+      document.querySelectorAll(".nav-tab").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tab === tabName);
+      });
+      document.querySelectorAll(".view-section").forEach((sec) => {
+        sec.classList.remove("active");
+      });
+      document.getElementById("view-" + tabName).classList.add("active");
+      if (tabName === "tracker") renderTracker();
+    }
+
+    /* Category & Grid */
+    function setCategory(cat) {
+      activeCategory = cat;
+      document.querySelectorAll(".filter-chip").forEach((chip) => {
+        chip.classList.toggle("active", chip.dataset.cat === cat);
+      });
+      renderGrid();
+    }
+
+    function renderGrid() {
+      const query = document.getElementById("searchInput").value.trim().toLowerCase();
+      const filtered = PRODUCTS.filter((p) => {
+        const matchCat = activeCategory === "ALL" || p.category === activeCategory;
+        const matchQuery =
+          !query ||
+          p.title.toLowerCase().includes(query) ||
+          p.brand.toLowerCase().includes(query) ||
+          p.id.toLowerCase().includes(query);
+        return matchCat && matchQuery;
+      });
+
+      document.getElementById("verifiedCounter").textContent =
+        filtered.length + (filtered.length === 1 ? " Verified Item" : " Verified Items");
+
+      const grid = document.getElementById("productGrid");
+      if (!filtered.length) {
+        grid.innerHTML = `<div style="grid-column: 1 / -1; padding: 48px 0; text-align: center; color: var(--muted); font-size: 13px;">No verified items match your filter.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered
+        .map(
+          (p) => `
+        <article class="product-card" onclick="openProductModal('${p.id}')">
+          <div class="card-media">
+            <span class="badge-verified">VERIFIED</span>
+            ${p.svg}
+            <span class="inspect-hint">CLICK TO INSPECT</span>
+          </div>
+          <div class="card-meta">
+            <div class="card-sku">${p.brand} &nbsp; ${p.id}</div>
+            <div class="card-title">${p.title}</div>
+            <div class="card-price-row">
+              <span class="card-price">${formatKRW(p.basePrice)}</span>
+              <span class="card-all-in">ALL-IN PRICE</span>
+            </div>
+          </div>
+        </article>
+      `
+        )
+        .join("");
+    }
+
+    /* Product Modal */
+    function openProductModal(productId) {
+      selectedProduct = PRODUCTS.find((p) => p.id === productId);
+      if (!selectedProduct) return;
+      selectedSizeIndex = 0;
+
+      document.getElementById("modalSvgWrap").innerHTML =
+        `<span class="badge-verified">LAB VERIFIED</span>` + selectedProduct.svg;
+      document.getElementById("modalSku").textContent =
+        `${selectedProduct.brand} • ${selectedProduct.id}`;
+      document.getElementById("modalTitle").textContent = selectedProduct.title;
+
+      renderSizeButtons();
+      document.getElementById("productModal").classList.add("open");
+    }
+
+    function renderSizeButtons() {
+      const sizeGrid = document.getElementById("modalSizeGrid");
+      sizeGrid.innerHTML = selectedProduct.sizes
+        .map(
+          (s, idx) => `
+        <button type="button" class="size-btn ${idx === selectedSizeIndex ? "selected" : ""}" onclick="selectSize(${idx})">
+          <span class="size-label">${s.label}</span>
+          <span class="size-price">${formatKRW(s.price)}</span>
+        </button>
+      `
+        )
+        .join("");
+
+      const activeSize = selectedProduct.sizes[selectedSizeIndex];
+      document.getElementById("modalPrice").textContent = formatKRW(activeSize.price);
+    }
+
+    function selectSize(idx) {
+      selectedSizeIndex = idx;
+      renderSizeButtons();
+    }
+
+    function addSelectedToBag() {
+      if (!selectedProduct) return;
+      const chosenSize = selectedProduct.sizes[selectedSizeIndex];
+      bag.push({
+        id: selectedProduct.id,
+        title: selectedProduct.title,
+        size: chosenSize.label,
+        price: chosenSize.price
+      });
+      updateBagUI();
+      closeModal("productModal");
+      showToast("Added verified item to bag");
+    }
+
+    /* Bag Drawer */
+    function toggleBag(open) {
+      document.getElementById("bagDrawer").classList.toggle("open", open);
+      if (open) updateBagUI();
+    }
+
+    function closeDrawerOnBackdrop(e) {
+      if (e.target.id === "bagDrawer") toggleBag(false);
+    }
+
+    function removeFromBag(index) {
+      bag.splice(index, 1);
+      updateBagUI();
+    }
+
+    function updateBagUI() {
+      document.getElementById("bagCount").textContent = bag.length;
+      document.getElementById("drawerBagCount").textContent = bag.length;
+
+      const container = document.getElementById("bagItemsContainer");
+      const total = bag.reduce((sum, item) => sum + item.price, 0);
+      document.getElementById("bagTotal").textContent = formatKRW(total);
+
+      if (!bag.length) {
+        container.innerHTML = `<div style="color: var(--muted); font-size: 12px; padding: 32px 0; text-align: center;">Your verified bag is currently empty.</div>`;
+        return;
+      }
+
+      container.innerHTML = bag
+        .map(
+          (item, i) => `
+        <div class="bag-item">
+          <div>
+            <div style="font-size: 12px; font-weight: 700;">${item.title}</div>
+            <div style="font-size: 11px; color: var(--muted); margin-top: 2px;">Size: ${item.size} • NFC Tag Included</div>
+            <div style="font-size: 12px; font-weight: 700; margin-top: 6px;">${formatKRW(item.price)}</div>
+          </div>
+          <button style="background: none; border: none; color: var(--muted); font-size: 11px; text-decoration: underline; cursor: pointer;" onclick="removeFromBag(${i})">
+            Remove
+          </button>
+        </div>
+      `
+        )
+        .join("");
+    }
+
+    function checkoutBag() {
+      if (!bag.length) {
+        showToast("Your bag is empty");
+        return;
+      }
+      const orderNum = "YTSE-" + Math.floor(1000 + Math.random() * 9000);
+      const summary =
+        bag.length === 1
+          ? `${bag[0].title} (${bag[0].size})`
+          : `${bag[0].title} + ${bag.length - 1} more item(s)`;
+      const total = bag.reduce((sum, item) => sum + item.price, 0);
+
+      trackedOrders.unshift({
+        orderId: orderNum,
+        item: summary,
+        price: total,
+        stage: 1
+      });
+
+      bag = [];
+      updateBagUI();
+      toggleBag(false);
+      document.getElementById("trackerCount").textContent = trackedOrders.length;
+      switchTab("tracker");
+      showToast("Order placed • Sent to Seoul Lab");
+    }
+
+    /* Login & Example Member (Minho) */
+    function openLoginModal() {
+      const formView = document.getElementById("loginFormView");
+      const profileView = document.getElementById("memberProfileView");
+
+      if (currentMember) {
+        formView.style.display = "none";
+        profileView.style.display = "block";
+        document.getElementById("profileDisplayName").textContent = currentMember.name;
+        document.getElementById("profileDisplayEmail").textContent = currentMember.email;
+      } else {
+        formView.style.display = "block";
+        profileView.style.display = "none";
+      }
+      document.getElementById("loginModal").classList.add("open");
+    }
+
+    function fillExampleMember() {
+      document.getElementById("loginName").value = "Minho Kim";
+      document.getElementById("loginEmail").value = "minho.kim@ytse.kr";
+      document.getElementById("loginPass").value = "ytse2026demo";
+      showToast("Filled example member: Minho");
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById("loginName").value.trim() || "Member";
+      const email = document.getElementById("loginEmail").value.trim();
+      currentMember = { name, email };
+
+      const firstName = name.split(" ")[0];
+      const authBtn = document.getElementById("authBtn");
+      authBtn.innerHTML = `<span class="status-dot"></span> ${firstName}`;
+
+      closeModal("loginModal");
+      showToast("Signed in as " + name);
+    }
+
+    function handleLogout() {
+      currentMember = null;
+      document.getElementById("authBtn").textContent = "Log In";
+      document.getElementById("loginName").value = "";
+      document.getElementById("loginEmail").value = "";
+      document.getElementById("loginPass").value = "";
+      closeModal("loginModal");
+      showToast("Logged out");
+    }
+
+    /* Drops Notify */
+    function toggleDropNotify() {
+      notifyActive = !notifyActive;
+      const btn = document.getElementById("notifyBtn");
+      btn.textContent = notifyActive ? "Alert Set ✓" : "Notify Me";
+      btn.classList.toggle("solid", notifyActive);
+      showToast(notifyActive ? "Drop SMS/Email alert enabled" : "Drop alert removed");
+    }
+
+    /* Auth Tracker */
+    const STAGE_INFO = [
+      {
+        num: "STAGE 01",
+        title: "Seller Intake & Seal",
+        detail: "Parcel logged at Seoul Lab with tamper-evident intake barcode."
+      },
+      {
+        num: "STAGE 02",
+        title: "Physical & UV Inspection",
+        detail: "Stitching density, insole glue lines, and UV label print checked."
+      },
+      {
+        num: "STAGE 03",
+        title: "Serialized NFC Tagging",
+        detail: "Encrypted YTSE physical hangtag linked to digital certificate."
+      },
+      {
+        num: "STAGE 04",
+        title: "Insured Express Dispatch",
+        detail: "Double-boxed courier handoff with live signature tracking."
+      }
+    ];
+
+    function advanceStage(idx) {
+      if (trackedOrders[idx].stage < 4) {
+        trackedOrders[idx].stage += 1;
+        renderTracker();
+        showToast("Updated to Stage 0" + trackedOrders[idx].stage);
+      }
+    }
+
+    function renderTracker() {
+      const container = document.getElementById("trackerContainer");
+      container.innerHTML = trackedOrders
+        .map(
+          (ord, idx) => `
+        <div class="tracker-box">
+          <div class="tracker-top">
+            <div>
+              <div class="card-sku">${ord.orderId} • ALL-IN ${formatKRW(ord.price)}</div>
+              <div style="font-size: 15px; font-weight: 700; margin-top: 2px;">${ord.item}</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--verified); text-transform: uppercase;">
+                ${ord.stage === 4 ? "Dispatched ✓" : "In Lab Stage 0" + ord.stage}
+              </span>
+              ${
+                ord.stage < 4
+                  ? `<button class="pill-btn" onclick="advanceStage(${idx})">Simulate Next Stage</button>`
+                  : ""
+              }
+            </div>
+          </div>
+
+          <div class="stages-grid">
+            ${STAGE_INFO.map((st, sIdx) => {
+              const stepNum = sIdx + 1;
+              const isDone = stepNum <= ord.stage;
+              return `
+                <div class="stage-step ${isDone ? "done" : ""}">
+                  <div class="stage-num">
+                    <span>${st.num}</span>
+                    <span>${isDone ? "VERIFIED" : "PENDING"}</span>
+                  </div>
+                  <div class="stage-title">${st.title}</div>
+                  <div class="stage-detail">${st.detail}</div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        </div>
+      `
+        )
+        .join("");
+    }
+
+    /* Modal Helpers */
     function closeModal(id) {
       document.getElementById(id).classList.remove("open");
     }
 
-    function openProductModal(sku) {
-      const product = PRODUCTS.find((p) => p.sku === sku);
-      if (!product) return;
-      state.selectedProduct = product;
-      state.selectedSize = product.sizes.includes("270") ? "270" : product.sizes[0];
-
-      document.getElementById("modalSku").textContent = product.sku;
-      document.getElementById("modalBrand").textContent = product.brand;
-      document.getElementById("modalTitle").textContent = product.title;
-
-      updateProductPricing();
-      openModal("productModal");
+    function closeModalOnBackdrop(e, id) {
+      if (e.target.id === id) closeModal(id);
     }
 
-    function updateProductPricing() {
-      const product = state.selectedProduct;
-      if (!product) return;
-
-      const sizeIndex = product.sizes.indexOf(state.selectedSize);
-      const sizeOffset = Math.max(0, sizeIndex) * 5000;
-      const ask = product.baseAsk + sizeOffset;
-      const total = getAllInPrice(ask);
-
-      document.getElementById("selectedSizeLabel").textContent = state.selectedSize;
-      document.getElementById("askPriceLabel").textContent = formatKRW(ask);
-      document.getElementById("finalPriceLabel").textContent = formatKRW(total);
-
-      const matrix = document.getElementById("sizeMatrix");
-      matrix.innerHTML = product.sizes.map((sz) => `
-        <button type="button" class="size-btn ${sz === state.selectedSize ? "active" : ""}" data-size="${sz}">
-          ${sz}
-        </button>
-      `).join("");
-
-      matrix.querySelectorAll(".size-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          state.selectedSize = btn.dataset.size;
-          updateProductPricing();
-        });
-      });
-    }
-
-    /* Event Listeners */
-    document.querySelectorAll("[data-close]").forEach((btn) => {
-      btn.addEventListener("click", () => closeModal(btn.dataset.close));
-    });
-
-    document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
-      backdrop.addEventListener("click", (e) => {
-        if (e.target === backdrop) backdrop.classList.remove("open");
-      });
-    });
-
-    document.getElementById("categoryTabs").addEventListener("click", (e) => {
-      const btn = e.target.closest(".tab-btn");
-      if (!btn) return;
-      document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      state.category = btn.dataset.category;
-      renderCatalog();
-    });
-
-    document.getElementById("sortSelect").addEventListener("change", (e) => {
-      state.sort = e.target.value;
-      renderCatalog();
-    });
-
-    document.getElementById("searchInput").addEventListener("input", (e) => {
-      state.search = e.target.value;
-      renderCatalog();
-    });
-
-    /* Example Member (Minho) Auto-Fill inside Login Modal */
-    document.getElementById("fillMinhoBtn").addEventListener("click", () => {
-      document.getElementById("loginName").value = "Minho";
-      document.getElementById("loginEmail").value = "minho@ytse.kr";
-      document.getElementById("loginPassword").value = "ytse2026";
-      showToast("Filled example member credentials for Minho");
-    });
-
-    document.getElementById("loginForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const name = document.getElementById("loginName").value.trim() || "Minho";
-      const email = document.getElementById("loginEmail").value.trim() || "minho@ytse.kr";
-      state.currentUser = {
-        name,
-        email,
-        address: "Seoul, Mapo-gu"
-      };
-      renderAuthHeader();
-      closeModal("loginModal");
-      showToast(`Signed in as ${name}`);
-    });
-
-    document.getElementById("proceedCheckoutBtn").addEventListener("click", () => {
-      const product = state.selectedProduct;
-      if (!product) return;
-      const sizeIndex = product.sizes.indexOf(state.selectedSize);
-      const ask = product.baseAsk + Math.max(0, sizeIndex) * 5000;
-      const total = getAllInPrice(ask);
-
-      document.getElementById("checkoutItemSummary").innerHTML = `
-        <strong>${product.brand} — ${product.title}</strong><br />
-        <span style="color: var(--muted);">Size ${state.selectedSize} · ${product.sku} · Multi-Point Lab Verified</span>
-      `;
-      document.getElementById("checkoutTotal").textContent = formatKRW(total);
-
-      closeModal("productModal");
-      openModal("checkoutModal");
-    });
-
-    document.getElementById("confirmOrderBtn").addEventListener("click", () => {
-      closeModal("checkoutModal");
-      const buyer = state.currentUser ? state.currentUser.name : "Guest";
-      showToast(`Verified order confirmed for ${buyer}`);
-    });
-
-    /* Initialize */
-    renderAuthHeader();
-    renderCatalog();
-    renderReleases();
+    // Initialize
+    renderGrid();
     renderTracker();
   </script>
 </body>
